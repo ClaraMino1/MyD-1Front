@@ -14,12 +14,14 @@ body{
     background-color: #ffffff;
     align-items: center;
 }
+
 .header-contenedor{ 
     display: flex;
     align-items: center;
     justify-content: space-around;
     width: 100%;
 }
+
 .btn-buscar{
     margin: 0;
     padding: 0;
@@ -28,6 +30,7 @@ body{
     border-radius: 0 3px 3px 0;
     background-color: var(--rojo);
 }  
+
 .btn-buscar i {
     font-size: 8px;
     padding: 5px;
@@ -45,11 +48,16 @@ table {
     text-align: left;
     font-size: 10px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; /*hay que ver si lo dejamos*/
+    overflow: visible; /* Elimina el scroll */
+    table-layout: fixed; /* Ajusta las celdas para adaptarse al ancho */
 }
+
 th, td {
+    word-wrap: break-word; /* Fuerza el contenido a ajustarse dentro de la celda */
     border: 1px solid #b5b5b5;
     padding: 8px;
 }
+
 th {
     border: none;
     color: rgba(0, 0, 0, 0.85);
@@ -77,9 +85,11 @@ td {
     background: white;
     border-bottom: 1px solid #f0f0f0;
 }
+
 tr:hover {
     background-color: #ddd;
 }
+
 .btn-buscar:hover{
     cursor: pointer;
 }
@@ -93,41 +103,3 @@ input[type="text"] {
     appearance: none;
     font-size: 9px;
 }
-/* 
-#output{
-    margin-top: 20px;
-    font-family: system-ui;
-    width: 65%;
-    text-align: center;
-}
-
-.banner-contenedor{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    height: 40px;
-    font-size: 10px;
-}
-
-.pagination {
-    display: flex;
-    justify-content: left;
-    margin: 20px -3px;
-}
-.pagination button {
-    padding: 2px 5.5px;
-    border-radius: 2px;
-    margin: 0 3px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    font-size: 10px;
-}
-.pagination button.disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-.pagination button.active {
-    border-color: #007bff;
-    color: #007bff;
-} */
