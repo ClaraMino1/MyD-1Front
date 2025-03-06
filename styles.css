@@ -36,7 +36,6 @@ body{
     padding: 5px;
 }
 
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -98,4 +97,10 @@ input[type="text"] {
     padding: 0 0.3rem;
     appearance: none;
     font-size: 9px;
+}
+
+input[type="text"].isbn {
+    width: 300px; /* Ajusta el ancho del input */
+    font-size: 12px; /* Aumenta el tamaño del texto */
+    padding: 5px; /* Más espacio interno */
 }
