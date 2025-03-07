@@ -1,10 +1,10 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Consulta de Ventas por ISBN</title>
-  <script src="./index.js"></script>
+  <script src="./index.js" defer></script>
   <link rel="stylesheet" href="./styles.css">
   <script src="https://kit.fontawesome.com/e99a8b90e3.js" crossorigin="anonymous"></script>
 </head>
@@ -27,95 +27,111 @@
         <option value="digital">Digital</option>
       </select>
     </div>
-    <!--
-    <div>
-      <label for="country">País:</label>
-      <select id="country">
-        <option value="">Todos</option>
-        <option value="argentina">Argentina</option>
-        <option value="otros">Otros</option>
-      </select>
-    </div>
-    <div>
-      <label for="startMonth">Desde Mes:</label>
-      <select id="startMonth">
-        <option value="">Seleccionar</option>
-        <option value="1">Enero</option>
-        <option value="2">Febrero</option>
-        <option value="3">Marzo</option>
-        <option value="4">Abril</option>
-        <option value="5">Mayo</option>
-        <option value="6">Junio</option>
-        <option value="7">Julio</option>
-        <option value="8">Agosto</option>
-        <option value="9">Septiembre</option>
-        <option value="10">Octubre</option>
-        <option value="11">Noviembre</option>
-        <option value="12">Diciembre</option>
-      </select>
-    </div>
-    <div>
-      <label for="startYear">Desde Año:</label>
-      <select id="startYear">
-        <option value="2024">2024</option>
-        <option value="2025">2025</option>
-      </select>
-    </div>
-    <div>
-      <label for="endMonth">Hasta Mes (Opcional):</label>
-      <select id="endMonth">
-        <option value="">Seleccionar</option>
-        <option value="1">Enero</option>
-        <option value="2">Febrero</option>
-        <option value="3">Marzo</option>
-        <option value="4">Abril</option>
-        <option value="5">Mayo</option>
-        <option value="6">Junio</option>
-        <option value="7">Julio</option>
-        <option value="8">Agosto</option>
-        <option value="9">Septiembre</option>
-        <option value="10">Octubre</option>
-        <option value="11">Noviembre</option>
-        <option value="12">Diciembre</option>
-      </select>
-    </div>
-    <div>
-      <label for="endYear">Hasta Año (Opcional):</label>
-      <select id="endYear">
-        <option value="">Seleccionar</option>
-        <option value="2024">2024</option>
-        <option value="2025">2025</option>
-      </select>
-    </div>-->
   </div>
   
   <script>
     async function fetchData() {
-      const isbn = document.getElementById('isbn').value.trim();
-      const format = document.getElementById('format').value.toLowerCase();
-      const country = document.getElementById('country').value;
-      const startMonth = document.getElementById('startMonth').value;
-      const startYear = document.getElementById('startYear').value;
-      const endMonth = document.getElementById('endMonth').value;
-      const endYear = document.getElementById('endYear').value;
-      
-      let url = `https://mydback.onrender.com/readExcelByISBN?isbn=${isbn}&format=${format}&country=${country}&startMonth=${startMonth}&startYear=${startYear}`;
-      
-      if (endMonth && endYear) {
-        url += `&endMonth=${endMonth}&endYear=${endYear}`;
+      const isbnInput = document.getElementById('isbn');
+      if (!isbnInput) {
+        console.error('El campo de ISBN no fue encontrado en el DOM.');
+        return;
       }
+
+      const isbn = isbnInput.value.trim();
+      if (!isbn) {
+        console.error('ISBN no ingresado');
+        return;
+      }
+
+      const format = document.getElementById('format')?.value || "";
       
+      let url = `https://mydback.onrender.com/readExcelByISBN?isbn=${isbn}&format=${format}`;
+      console.log("URL generada:", url);
+
       try {
         const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Error en la respuesta: ${response.status}`);
+        }
         const data = await response.json();
-        console.log(data); 
+        console.log("Datos recibidos:", data);
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error al obtener datos:', error);
       }
     }
-    
+
     function checkEnter(event) {
-      if (event.keyCode === 13) {
+      if (event.key === "Enter") {
+        fetchData();
+      }
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Ventas por ISBN</title>
+  <script src="./index.js" defer></script>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://kit.fontawesome.com/e99a8b90e3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="header-contenedor">
+    <div class="buscador-container">
+      <input type="text" id="isbn" placeholder="Ingrese ISBN sin guiones" onkeypress="checkEnter(event)">
+      <button class="btn-buscar" onclick="fetchData()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="filters-container">
+    <div>
+      <label for="format">Formato:</label>
+      <select id="format">
+        <option value="">Todos</option>
+        <option value="fisico">Físico</option>
+        <option value="digital">Digital</option>
+      </select>
+    </div>
+  </div>
+  
+  <script>
+    async function fetchData() {
+      const isbnInput = document.getElementById('isbn');
+      if (!isbnInput) {
+        console.error('El campo de ISBN no fue encontrado en el DOM.');
+        return;
+      }
+
+      const isbn = isbnInput.value.trim();
+      if (!isbn) {
+        console.error('ISBN no ingresado');
+        return;
+      }
+
+      const format = document.getElementById('format')?.value || "";
+      
+      let url = `https://mydback.onrender.com/readExcelByISBN?isbn=${isbn}&format=${format}`;
+      console.log("URL generada:", url);
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Error en la respuesta: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("Datos recibidos:", data);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    }
+
+    function checkEnter(event) {
+      if (event.key === "Enter") {
         fetchData();
       }
     }
