@@ -1,39 +1,51 @@
-:root{
+:root {
     padding: 0;
     margin: 0;
-
     --rojoOriginal: #E30613;
     --rojo: #ff541b;
+    --grisClaro: #f4f4f4;
+    --grisOscuro: #b5b5b5;
     font-family: system-ui;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     height: 100vh;
     background-color: #ffffff;
     align-items: center;
+    padding: 20px;
 }
 
-.header-contenedor{ 
+.header-contenedor {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.buscador-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     width: 100%;
 }
 
-.btn-buscar{
-    margin: 0;
-    padding: 0;
-    border: 1px solid #b5b5b5;
-    border-left: none;
-    border-radius: 0 3px 3px 0;
+.btn-buscar {
+    padding: 8px 12px;
+    border-radius: 5px;
     background-color: var(--rojo);
-}  
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .btn-buscar i {
-    font-size: 8px;
-    padding: 5px;
+    font-size: 18px;
 }
 
 table {
@@ -41,67 +53,157 @@ table {
     border-collapse: collapse;
     border: none;
     text-align: left;
-    font-size: 10px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; /*hay que ver si lo dejamos*/
-    overflow: visible; /* Elimina el scroll */
-    table-layout: fixed; /* Ajusta las celdas para adaptarse al ancho */
+    font-size: 15px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    table-layout: fixed;
+    margin-top: 20px;
 }
 
 th, td {
-    word-wrap: break-word; /* Fuerza el contenido a ajustarse dentro de la celda */
     border: 1px solid #b5b5b5;
     padding: 8px;
+    word-wrap: break-word;
 }
 
 th {
-    border: none;
     color: rgba(0, 0, 0, 0.85);
     background: #fafafa;
     border-bottom: 1px solid #f0f0f0;
 }
 
-th:not(:last-child) {
-    position: relative; /* Necesario para usar ::after */
-}
-
-th:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 50%; /* Ajusta la posición vertical */
-    right: 0;
-    height: 45%; /* Ajusta la longitud del borde */
-    border-right: 1px solid #ededed;
-    transform: translateY(-50%); /* Centra el borde verticalmente */
-}
-
 td {
-    border: none;
     color: rgba(29, 28, 28, 0.85);
     background: white;
-    border-bottom: 1px solid #f0f0f0;
 }
 
 tr:hover {
     background-color: #ddd;
 }
 
-.btn-buscar:hover{
+.btn-buscar:hover {
     cursor: pointer;
+    background-color: var(--rojoOriginal);
+}
+
+#isbn {
+    font-size: 17px;
+    padding: 8px;
+    width: 250px;
 }
 
 input[type="text"] {
     outline: none;
-    border: 1px solid #b5b5b5;
-    border-radius: 3px 0 0 3px;
+    border: 1px solid var(--grisOscuro);
+    border-radius: 3px;
     background: white;
-    padding: 0 0.3rem;
-    appearance: none;
-    font-size: 9px;
+    padding: 8px;
+    font-size: 16px;
+    width: 250px;
 }
 
-/* Estilo personalizado para el input con id 'isbn' */
-#isbn {
-    width: 300px; /* Ajusta el ancho del input */
-    font-size: 12px; /* Aumenta el tamaño del texto */
-    padding: 5px; /* Más espacio interno */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.filters-container div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 180px;
+}
+
+.filters-container label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.filters-container select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid var(--grisOscuro);
+    border-radius: 3px;
+    background-color: white;
+    width: 100%;
+}
+
+#loadingMessage {
+    display: none;
+    margin-top: 20px;
+}
+
+#loading i {
+    font-size: 30px;
+    color: var(--rojo);
+}
+
+#error-message {
+    display: none;
+    color: red;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+#data-table {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .header-contenedor {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .buscador-container {
+        flex-direction: row; /* Asegura que se mantenga en fila */
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    #isbn {
+        width: 70%; /* Ajuste para que ocupe un mayor ancho */
+        font-size: 16px;
+    }
+
+    .filters-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .filters-container div {
+        flex: none;
+        width: 100%;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    .btn-buscar {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #isbn {
+        width: 100%;
+    }
+
+    input[type="text"] {
+        width: 100%;
+    }
+
+    .btn-buscar i {
+        font-size: 16px;
+    }
 }
