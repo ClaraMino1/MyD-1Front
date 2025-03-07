@@ -92,25 +92,25 @@
                 }
 
                 // Ocultar o mostrar columnas según el formato seleccionado
-                ventasTotalesHeader.style.display = (format === '' || format === 'fisico' || format === 'digital') ? 'table-cell' : 'none';
-                ventasFisicasHeader.style.display = (format === 'fisico' || !format) ? 'table-cell' : 'none';
-                ventasDigitalesHeader.style.display = (format === 'digital' || !format) ? 'table-cell' : 'none';
+                ventasTotalesHeader.style.display = (format === '') ? 'table-cell' : 'none';
+                ventasFisicasHeader.style.display = (format === 'fisico' || format === '') ? 'table-cell' : 'none';
+                ventasDigitalesHeader.style.display = (format === 'digital' || format === '') ? 'table-cell' : 'none';
 
                 // Construcción de la tabla con datos del objeto recibido
                 let rowHtml = `<tr><td>${data.titulo}</td>`;
 
                 // Mostrar ventas totales si se selecciona "Todos"
-                if (format === '' || format === 'fisico' || format === 'digital') {
+                if (format === '') {
                     rowHtml += `<td>${data.ventasPorMes.map(venta => venta.ventasTotales).join(' / ') || '-'}</td>`;
                 }
 
                 // Mostrar ventas físicas si se selecciona "Físico" o "Todos"
-                if (format === 'fisico' || !format) {
+                if (format === 'fisico' || format === '') {
                     rowHtml += `<td>${data.ventasPorMes.map(venta => venta.cantidadF).join(' / ') || '-'}</td>`;
                 }
 
                 // Mostrar ventas digitales si se selecciona "Digital" o "Todos"
-                if (format === 'digital' || !format) {
+                if (format === 'digital' || format === '') {
                     rowHtml += `<td>${data.ventasPorMes.map(venta => venta.ventasDigitales).join(' / ') || '-'}</td>`;
                 }
 
