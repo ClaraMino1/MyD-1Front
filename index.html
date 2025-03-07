@@ -59,6 +59,9 @@
             const loadingMessage = document.getElementById('loadingMessage');
             const table = document.getElementById('data-table');
             const tableBody = document.querySelector('#data-table tbody');
+            const ventasTotalesHeader = document.getElementById('ventas-totales-header');
+            const ventasFisicasHeader = document.getElementById('ventas-fisicas-header');
+            const ventasDigitalesHeader = document.getElementById('ventas-digitales-header');
 
             // Limpiar mensajes anteriores
             errorMessage.style.display = 'none';
@@ -88,16 +91,32 @@
                     return;
                 }
 
-                // Construcción de la tabla con datos del objeto recibido
-                tableBody.innerHTML = `
-                    <tr>
-                        <td>${data.titulo}</td>
-                        <td>${data.ventasPorMes.map(venta => venta.ventasTotales).join(' / ') || '-'}</td>
-                        <td>${data.ventasPorMes.map(venta => venta.cantidadF).join(' / ') || '-'}</td>
-                        <td>${data.ventasPorMes.map(venta => venta.ventasDigitales).join(' / ') || '-'}</td>
-                    </tr>
-                `;
+                // Ocultar o mostrar columnas según el formato seleccionado
+                ventasTotalesHeader.style.display = (format === '' || format === 'fisico' || format === 'digital') ? 'table-cell' : 'none';
+                ventasFisicasHeader.style.display = (format === 'fisico' || !format) ? 'table-cell' : 'none';
+                ventasDigitalesHeader.style.display = (format === 'digital' || !format) ? 'table-cell' : 'none';
 
+                // Construcción de la tabla con datos del objeto recibido
+                let rowHtml = `<tr><td>${data.titulo}</td>`;
+
+                // Mostrar ventas totales si se selecciona "Todos"
+                if (format === '' || format === 'fisico' || format === 'digital') {
+                    rowHtml += `<td>${data.ventasPorMes.map(venta => venta.ventasTotales).join(' / ') || '-'}</td>`;
+                }
+
+                // Mostrar ventas físicas si se selecciona "Físico" o "Todos"
+                if (format === 'fisico' || !format) {
+                    rowHtml += `<td>${data.ventasPorMes.map(venta => venta.cantidadF).join(' / ') || '-'}</td>`;
+                }
+
+                // Mostrar ventas digitales si se selecciona "Digital" o "Todos"
+                if (format === 'digital' || !format) {
+                    rowHtml += `<td>${data.ventasPorMes.map(venta => venta.ventasDigitales).join(' / ') || '-'}</td>`;
+                }
+
+                rowHtml += `</tr>`;
+
+                tableBody.innerHTML = rowHtml;
                 table.style.display = 'table';
             } catch (error) {
                 errorMessage.textContent = 'Error al obtener los datos: ' + error.message;
