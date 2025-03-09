@@ -13,25 +13,16 @@ body {
     height: 100vh;
     background-color: #ffffff;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .header-contenedor {
     display: flex;
-    flex-direction: column; /* Cambiado a columna en pantallas pequeñas */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     margin-bottom: 20px;
-}
-
-.buscador-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
 }
 
 .btn-buscar {
@@ -47,7 +38,7 @@ body {
 .filters-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
     margin-bottom: 20px;
 }
@@ -67,6 +58,7 @@ body {
     width: 100%;
     margin-top: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
 }
 
 #data-table th, #data-table td {
@@ -79,7 +71,42 @@ body {
     padding: 10px;
     border-radius: 5px;
     margin-right: 3px;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
+
+.custom-month-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.custom-month-label {
+    margin-right: 5px;
+}
+
+.custom-month-input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: system-ui;
+    width: 100%;
+    max-width: 150px;
+    box-sizing: border-box;
+}
+
+.optional-label {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--grisClaro);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    color: var(--grisOscuro);
 }
 
 /* Media queries para hacerlo responsive */
@@ -99,11 +126,21 @@ body {
     }
 
     .filters-container {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column; /* Cambiado a columna para apilar los filtros */
+        align-items: center; /* Centrar los filtros horizontalmente */
     }
 
     .filters-container > div {
         width: 100%;
+        text-align: center; /* Centrar el contenido de los filtros */
+    }
+
+    /* Ajuste adicional para los inputs de mes */
+    .custom-month-container {
+        width: 100%; /* Asegurar que ocupen todo el ancho */
+    }
+
+    .custom-month-input {
+        width: 100%; /* Asegurar que ocupen todo el ancho */
     }
 }
