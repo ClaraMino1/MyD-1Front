@@ -53,15 +53,17 @@ body {
     font-family: system-ui;
 }
 
-#data-table {
+.data-table {
     border-collapse: collapse;
     width: 100%;
     margin-top: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08);
     overflow-x: auto;
+    display: none;
 }
 
-#data-table th, #data-table td {
+.data-table th,
+.data-table td {
     padding: 8px;
     text-align: center;
     border: none;
@@ -109,6 +111,23 @@ body {
     color: var(--grisOscuro);
 }
 
+.error-message {
+    display: none;
+    color: red;
+    margin-top: 20px;
+}
+
+.loading-indicator {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.loading-indicator i {
+    font-size: 2rem;
+    color: var(--rojo);
+}
+
 /* Media queries para hacerlo responsive */
 @media (max-width: 768px) {
     .header-contenedor {
@@ -126,21 +145,20 @@ body {
     }
 
     .filters-container {
-        flex-direction: column; /* Cambiado a columna para apilar los filtros */
-        align-items: center; /* Centrar los filtros horizontalmente */
+        flex-direction: column;
+        align-items: center;
     }
 
     .filters-container > div {
         width: 100%;
-        text-align: center; /* Centrar el contenido de los filtros */
+        text-align: center;
     }
 
-    /* Ajuste adicional para los inputs de mes */
     .custom-month-container {
-        width: 100%; /* Asegurar que ocupen todo el ancho */
+        width: 100%;
     }
 
     .custom-month-input {
-        width: 100%; /* Asegurar que ocupen todo el ancho */
+        width: 100%;
     }
 }
