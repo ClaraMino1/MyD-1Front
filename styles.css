@@ -1,7 +1,6 @@
 :root {
     padding: 0;
     margin: 0;
-    /*--rojoOriginal: #E30613;*/
     --rojo: #f50c1c;
     --grisClaro: #f4f4f4;
     --grisOscuro: #b5b5b5;
@@ -19,6 +18,7 @@ body {
 
 .header-contenedor {
     display: flex;
+    flex-direction: column; /* Cambiado a columna en pantallas pequeñas */
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -53,10 +53,13 @@ body {
 }
 
 .filters-container select,
-.filters-container input {
+.filters-container input[type="month"],
+.filters-container input[type="text"] {
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: system-ui;
 }
 
 #data-table {
@@ -72,9 +75,35 @@ body {
     border: none;
 }
 
-#isbn{
+#isbn {
     padding: 10px;
     border-radius: 5px;
     margin-right: 3px;
     width: 300px;
+}
+
+/* Media queries para hacerlo responsive */
+@media (max-width: 768px) {
+    .header-contenedor {
+        flex-direction: column;
+    }
+
+    .header-contenedor > div {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    #isbn {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .filters-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filters-container > div {
+        width: 100%;
+    }
 }
