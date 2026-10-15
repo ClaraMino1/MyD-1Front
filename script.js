@@ -51,11 +51,12 @@ async function fetchData() {
         if (mesFin) url += `&mesFin=${mesFin}`;
 
         const response = await fetch(url);
-        if (!response.ok) throw new Error('No se pudo obtener la información del servidor');
+        const data = await response.json().catch(() => null);
 
-        const data = await response.json();
-        if (!data || data.error) {
-            errorMessage.textContent = data.error || 'ERROR: El ISBN ingresado no existe.';
+        // El backend siempre responde { error } con un mensaje explicativo,
+        // así que lo mostramos tal cual en lugar de un genérico.
+        if (!response.ok || !data || data.error) {
+            errorMessage.textContent = data?.error || `El servidor respondió con estado ${response.status}.`;
             errorMessage.style.display = 'block';
             return;
         }
